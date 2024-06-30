@@ -1,3 +1,42 @@
+// GLOBAL RESET
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Variables Start
+$primary-color: #1B1A22;
+
 body {
-    background-color: aqua;
+    background-image: linear-gradient(rgba(27, 26, 34, 0.2), rgba(27, 26, 34, 0.2)), url("/img/other/background.webp");
+    background-position: center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: $primary-color;
+    color: white;
+    padding: 30px;
+
+    .left-nav-logo {
+        width: 8%;
+        background-image: url("/img/other/logo.webp");
+        background-position: center;
+        background-size: cover;
+
+    }
+
+    .right-nav {
+        width: 30%;
+        ul {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }

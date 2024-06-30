@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS FILES START -->
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- Fullpage CSS -->
@@ -16,12 +17,123 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
+    <!-- CSS FILES END -->
     <title>ANISTAY</title>
 </head>
 
 <body>
-    
+    <!-- NavBar -->
+    <nav>
+        <!-- Logo Container -->
+        <div class="left-nav-logo"></div>
 
+        <!-- Navlink Container -->
+        <div class="right-nav">
+            <ul>
+                <li>About Us</li>
+                <li>Find a Room</li>
+                <li>Animal Attractions</li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Full Pgae for whole website -->
+    <div id="fullpage">
+        <!-- Home Section (Landing Page) -->
+        <div class="section section-home" id="home">
+            <!-- Left container hold logo and quote -->
+            <div class="left-container">
+                <div class="home-logo"></div>
+                <h1 class="left-container-logo">“There's more to find in Aotearoa New Zealand.”</h1>
+            </div>
+            <div class="right-container">
+                <div class="home-qualmark-logo"></div>
+                <button class="primary-button">Find A Room</button>
+            </div>
+        </div>
+        <div class="section section-filters" id="filters">
+            <div class="filters-container">
+                <!-- Location Filtering Select Container -->
+                <div class="filter">
+                    <label for="location">Location:</label>
+                    <select name="location" id="location" class="full-width-select" required>
+                        <option value="wellington">Wellington</option>
+                        <option value="christchurch">Christchurch</option>
+                        <option value="napier">Napier</option>
+                        <option value="auckland">Auckland</option>
+                    </select>
+                </div>
+                <!-- Guests Filtering Select Container -->
+                <div class="filter">
+                    <label for="guests">Guests:</label>
+                    <select name="guests" id="guests" class="full-width-select" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <!-- Type Filtering Select Container -->
+                <div class="filter">
+                    <label for="type">Type:</label>
+                    <select name="type" id="type" class="full-width-select">
+                        <option value="">Any</option>
+                        <option value="house">House</option>
+                        <option value="hostel">Hostel</option>
+                        <option value="motel">Motel</option>
+                        <option value="hotel">Hotel</option>
+                    </select>
+                </div>
+                <!-- Number of stays filtering select container -->
+                <div class="filter-container-select-dates">
+                    <!-- number of stays Filtering Select Container -->
+                    <!-- Start Date / Min Stay -->
+                    <div class="filter smaller-filter">
+                        <label for="minStay">Start Date:</label>
+                        <input type="text" id="startDate" name="startDate" class="full-width-select" required>
+                    </div>
+                    <!-- End Date / Max Stay -->
+                    <div class="filter smaller-filter">
+                        <label for="maxStay">End Date:</label>
+                        <input type="text" id="endDate" name="endDate" class="full-width-select" required>
+                    </div>
+                </div>
+                <div class="filter-container-select-price">
+                    <!-- Min Price Filtering Select Container -->
+                    <div class="filter smaller-filter">
+                        <label for="minPrice">Min Price:</label>
+                        <select name="minPrice" id="minPrice">
+                            <option value="">Any</option>
+                            <option value="0">$0</option>
+                            <option value="50">$50</option>
+                            <option value="100">$100</option>
+                            <option value="150">$150</option>
+                            <option value="150">$150</option>
+                            <option value="200">$200</option>
+                            <option value="250">$250</option>
+                        </select>
+                    </div>
+                    <!-- Max Price Filtering Select Container -->
+                    <div class="filter smaller-filter">
+                        <label for="maxPrice">Max Price:</label>
+                        <select name="maxPrice" id="maxPrice">
+                            <option value="">Any</option>
+                            <option value="0">$0</option>
+                            <option value="50">$50</option>
+                            <option value="100">$100</option>
+                            <option value="150">$150</option>
+                            <option value="150">$150</option>
+                            <option value="200">$200</option>
+                            <option value="250">$250</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class="primary-button">Search</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FILES START -->
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Jquery UI -->
@@ -36,6 +148,7 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <!-- Custom JS -->
     <script src="./js/script.min.js"></script>
+    <!-- JAVASCRIPT FILES END -->
 </body>
 
 </html>
