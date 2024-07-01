@@ -51,85 +51,128 @@
                 <button class="primary-button">Find A Room</button>
             </div>
         </div>
+
+        <!-- Filters  -->
         <div class="section section-filters" id="filters">
-            <div class="filters-container">
-                <!-- Location Filtering Select Container -->
-                <div class="filter">
-                    <label for="location">Location:</label>
-                    <select name="location" id="location" class="full-width-select" required>
-                        <option value="wellington">Wellington</option>
-                        <option value="christchurch">Christchurch</option>
-                        <option value="napier">Napier</option>
-                        <option value="auckland">Auckland</option>
-                    </select>
-                </div>
-                <!-- Guests Filtering Select Container -->
-                <div class="filter">
-                    <label for="guests">Guests:</label>
-                    <select name="guests" id="guests" class="full-width-select" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <!-- Type Filtering Select Container -->
-                <div class="filter">
-                    <label for="type">Type:</label>
-                    <select name="type" id="type" class="full-width-select">
-                        <option value="">Any</option>
-                        <option value="house">House</option>
-                        <option value="hostel">Hostel</option>
-                        <option value="motel">Motel</option>
-                        <option value="hotel">Hotel</option>
-                    </select>
-                </div>
-                <!-- Number of stays filtering select container -->
-                <div class="filter-container-select-dates">
-                    <!-- number of stays Filtering Select Container -->
-                    <!-- Start Date / Min Stay -->
-                    <div class="filter smaller-filter">
-                        <label for="minStay">Start Date:</label>
-                        <input type="text" id="startDate" name="startDate" class="full-width-select" required>
-                    </div>
-                    <!-- End Date / Max Stay -->
-                    <div class="filter smaller-filter">
-                        <label for="maxStay">End Date:</label>
-                        <input type="text" id="endDate" name="endDate" class="full-width-select" required>
-                    </div>
-                </div>
-                <div class="filter-container-select-price">
-                    <!-- Min Price Filtering Select Container -->
-                    <div class="filter smaller-filter">
-                        <label for="minPrice">Min Price:</label>
-                        <select name="minPrice" id="minPrice">
-                            <option value="">Any</option>
-                            <option value="0">$0</option>
-                            <option value="50">$50</option>
-                            <option value="100">$100</option>
-                            <option value="150">$150</option>
-                            <option value="150">$150</option>
-                            <option value="200">$200</option>
-                            <option value="250">$250</option>
+            <div class="slide slide-filters">
+                <div class="filters-container">
+                    <!-- Location Filtering Select Container -->
+                    <div class="filter">
+                        <label for="location">Location:</label>
+                        <select name="location" id="location" class="full-width-select" required>
+                            <option value="wellington">Wellington</option>
+                            <option value="christchurch">Christchurch</option>
+                            <option value="napier">Napier</option>
+                            <option value="auckland">Auckland</option>
                         </select>
                     </div>
-                    <!-- Max Price Filtering Select Container -->
-                    <div class="filter smaller-filter">
-                        <label for="maxPrice">Max Price:</label>
-                        <select name="maxPrice" id="maxPrice">
-                            <option value="">Any</option>
-                            <option value="0">$0</option>
-                            <option value="50">$50</option>
-                            <option value="100">$100</option>
-                            <option value="150">$150</option>
-                            <option value="150">$150</option>
-                            <option value="200">$200</option>
-                            <option value="250">$250</option>
+                    <!-- Guests Filtering Select Container -->
+                    <div class="filter">
+                        <label for="guests">Guests:</label>
+                        <select name="guests" id="guests" class="full-width-select" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </div>
+                    <!-- Type Filtering Select Container -->
+                    <div class="filter">
+                        <label for="type">Type:</label>
+                        <select name="type" id="type" class="full-width-select">
+                            <option value="">Any</option>
+                            <option value="house">House</option>
+                            <option value="hostel">Hostel</option>
+                            <option value="motel">Motel</option>
+                            <option value="hotel">Hotel</option>
+                        </select>
+                    </div>
+                    <!-- Number of stays filtering select container -->
+                    <div class="filter-container-select-dates">
+                        <!-- number of stays Filtering Select Container -->
+                        <!-- Start Date / Min Stay -->
+                        <div class="filter smaller-filter">
+                            <label for="minStay">Start Date:</label>
+                            <input type="text" id="startDate" name="startDate" class="full-width-select" required>
+                        </div>
+                        <!-- End Date / Max Stay -->
+                        <div class="filter smaller-filter">
+                            <label for="maxStay">End Date:</label>
+                            <input type="text" id="endDate" name="endDate" class="full-width-select" required>
+                        </div>
+                    </div>
+                    <div class="filter-container-select-price">
+                        <!-- Min Price Filtering Select Container -->
+                        <div class="filter smaller-filter">
+                            <label for="minPrice">Min Price:</label>
+                            <select name="minPrice" id="minPrice">
+                                <option value="">Any</option>
+                                <option value="0">$0</option>
+                                <option value="50">$50</option>
+                                <option value="100">$100</option>
+                                <option value="150">$150</option>
+                                <option value="150">$150</option>
+                                <option value="200">$200</option>
+                                <option value="250">$250</option>
+                            </select>
+                        </div>
+                        <!-- Max Price Filtering Select Container -->
+                        <div class="filter smaller-filter">
+                            <label for="maxPrice">Max Price:</label>
+                            <select name="maxPrice" id="maxPrice">
+                                <option value="">Any</option>
+                                <option value="0">$0</option>
+                                <option value="50">$50</option>
+                                <option value="100">$100</option>
+                                <option value="150">$150</option>
+                                <option value="150">$150</option>
+                                <option value="200">$200</option>
+                                <option value="250">$250</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="primary-button">Search</button>
+            </div>
+
+            <div class="slide slide-results">
+                <div class="filter-button-container">
+                    <button><i class="fa-solid fa-arrow-left"></i>Back</button>
+                    <div class="right-filter-button-container">
+                        <button class="secondary-button">Show Map<i class="fa-solid fa-location-dot"></i></button>
+                        <button class="secondary-button" id="nearbyAnimalButton">Nearby Animal Attractions<i class="fa-solid fa-paw"></i></button>
+                    </div>
+                </div>
+                <h1>Filtered Results</h1>
+                <div id="results"></div>
+            </div>
+
+            <div class="slide slide-accomadation">
+                <div class="filter-button-container">
+                    <button><i class="fa-solid fa-arrow-left"></i>Back</button>
+                    <div class="right-filter-button-container">
+                        <button>Show Map<i class="fa-solid fa-location-dot"></i></button>
+                        <button>Nearby Animal Attractions<i class="fa-solid fa-paw"></i></button>
+                    </div>
+                </div>
+                <div id="accomadationSelected"></div>
+            </div>
+
+            <div class="slide slide-booking-info">
+                <button><i class="fa-solid fa-arrow-left"></i>Back</button>
+                <div id="bookingInfoResults">
+                    <button class="primary-button">Confirm</button>
                 </div>
             </div>
-            <button class="primary-button">Search</button>
+
+            <div class="slide slide-confirmation-success">
+                <div class="confirmation-success-container">
+                    <i class="fa-solid fa-paw"></i>
+                    <h1>Booking Successful</h1>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
@@ -146,6 +189,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- MapBox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <!-- Font Awwesome JS -->
+    <script src="https://kit.fontawesome.com/f6829a4419.js" crossorigin="anonymous"></script>
     <!-- Custom JS -->
     <script src="./js/script.min.js"></script>
     <!-- JAVASCRIPT FILES END -->
