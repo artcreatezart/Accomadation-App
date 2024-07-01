@@ -32,7 +32,7 @@ body {
 }
 
 // Navigation bar styling
-nav {
+#navbar {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -47,8 +47,10 @@ nav {
         background-size: cover;
 
     }
+
     .right-nav {
         width: 30%;
+
         ul {
             display: flex;
             justify-content: space-between;
@@ -56,4 +58,10 @@ nav {
 
         }
     }
+}
+
+.slide,
+.section {
+    height: 100%;
+    width: 100%;
 }

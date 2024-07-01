@@ -1,4 +1,6 @@
-const accomadations = [{
+/* jshint esversion: 6 */
+
+const accomadation = [{
     id: 1,
     accomadationImage1: "./img/accomadation/wellington-hotel-1.webp",
     accomadationImage2: "./img/accomadation/wellington-hotel-2.webp",
@@ -193,3 +195,47 @@ const zoos = [{
     zooLongitude: "174.72040766752255",
     zooLatitude: "-36.84340051993856",
 }];
+
+$(document).ready(function () {
+    // Fullpage Init:
+    new fullpage('#fullpage', {
+        licenseKey: 'gplv3-license',
+        controlArrows: false,
+        fixedElements: "#navbar",
+    });
+
+    // Location Filtering :
+    function populateLocationOptions() {
+        const locations = Array.from(new Set(accomadation.map(accomadation => accomadation.location)));
+        locations.sort();
+        const locationSelect = $('#location');
+        locationSelect.empty();
+        locationSelect.append(`<option value="any">Any</option>`);
+        locations.forEach(location => {
+            locationSelect.append(`<option value="${accomadation.location}">${accomadation.location}</option>`);
+        });
+    }
+
+    populateLocationOptions();
+
+    function validateFilters() {
+        let isValid = true;
+        let errorMessage = "";
+
+        if ($('#location').val() === "") {
+            isValid = false;
+            errorMessage += "Please Select a Location.<br>";
+        }
+        if ($("#guests").val() === "") {
+            isValid = false;
+            errorMessage += "Please Select the Number of Guests.<br>";
+        }
+        if (!isValid) {
+            $('#errorMessage').html(errorMessage).show();
+        } else {
+            $('#errorMessage').hide();
+        }
+        return isValid;
+    }
+
+});

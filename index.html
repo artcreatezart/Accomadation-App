@@ -23,7 +23,7 @@
 
 <body>
     <!-- NavBar -->
-    <nav>
+    <nav id="navbar">
         <!-- Logo Container -->
         <div class="left-nav-logo"></div>
 
@@ -60,10 +60,10 @@
                     <div class="filter">
                         <label for="location">Location:</label>
                         <select name="location" id="location" class="full-width-select" required>
-                            <option value="wellington">Wellington</option>
+                            <!-- <option value="wellington">Wellington</option>
                             <option value="christchurch">Christchurch</option>
                             <option value="napier">Napier</option>
-                            <option value="auckland">Auckland</option>
+                            <option value="auckland">Auckland</option> -->
                         </select>
                     </div>
                     <!-- Guests Filtering Select Container -->
@@ -132,6 +132,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="errorMessage"></div>
                 <button class="primary-button">Search</button>
             </div>
 
