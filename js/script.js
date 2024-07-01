@@ -210,11 +210,12 @@ $(document).ready(function () {
         locations.sort();
         const locationSelect = $('#location');
         locationSelect.empty();
-        locationSelect.append(`<option value="any">Any</option>`);
+        locationSelect.append(`<option value=""></option>`);
         locations.forEach(location => {
-            locationSelect.append(`<option value="${accomadation.location}">${accomadation.location}</option>`);
+            locationSelect.append(`<option value="${location}">${location}</option>`);
         });
     }
+
 
     populateLocationOptions();
 
@@ -230,6 +231,10 @@ $(document).ready(function () {
             isValid = false;
             errorMessage += "Please Select the Number of Guests.<br>";
         }
+        if ($("#startDate").val(), $("#endDate").val() === "") {
+            isValid = false;
+            errorMessage += "Please Select Duration of Stay.<br>";
+        }
         if (!isValid) {
             $('#errorMessage').html(errorMessage).show();
         } else {
@@ -237,5 +242,60 @@ $(document).ready(function () {
         }
         return isValid;
     }
+
+    function filterAndDisplayAccomadations() {
+        const location = $('#location').val();
+        const guests = parseInt($('#guests').val(), 10) || 0;
+        const type = $('#type').val();
+        const diffDays = caculateDays();
+        console.log(diffDays);
+
+        const filteredAccomadations = accomadation.filter(accomadation => {
+            return (location === 'any' || accomadation.location === location) &&
+                (accomadation.minStay <= diffDays) &&
+                (accomadation.maxStay >= diffDays);
+        });
+
+        console.log(filteredAccomadations);
+        displayAccomadations(filteredAccomadations);
+    }
+
+    function calculateDays() {
+        const startDate = $("#startDate").datepicker("getDate");
+        const endDate = $("#endDate").datepicker("getDate");
+
+    }
+
+
+    // Date picker formats
+    $("startDate").datepicker({
+        dateFormat: "dd/mm/yyyy"
+    });
+    $("endDate").datepicker({
+        dateFormat: "dd/mm/yy"
+    });
+
+    // BUTTON FUCNTIONS STARTS
+    $("#findARoomButton").click(function (e) {
+        e.preventDefault();
+        fullpage_api.moveTo(2, 0);
+    });
+
+    $("#searchButton").click(function (e) {
+        e.preventDefault();
+        if (validateFilters()) {
+            fullpage_api.moveTo(2, 1);
+            filterAndDisplayAccomadations();
+        }
+    });
+
+    $("#backButton").click(function (e) {
+        e.preventDefault();
+        fullpage_api.moveTo(2, 0);
+    });
+
+    // BUTTON FUCNTIONS ENDS
+
+
 
 });

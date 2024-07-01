@@ -48,7 +48,7 @@
             </div>
             <div class="right-container">
                 <div class="home-qualmark-logo"></div>
-                <button class="primary-button">Find A Room</button>
+                <button id="findARoomButton" class="primary-button">Find A Room</button>
             </div>
         </div>
 
@@ -70,6 +70,7 @@
                     <div class="filter">
                         <label for="guests">Guests:</label>
                         <select name="guests" id="guests" class="full-width-select" required>
+                            <option value=""></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -133,12 +134,12 @@
                     </div>
                 </div>
                 <div id="errorMessage"></div>
-                <button class="primary-button">Search</button>
+                <button class="primary-button" id="searchButton">Search</button>
             </div>
 
             <div class="slide slide-results">
                 <div class="filter-button-container">
-                    <button><i class="fa-solid fa-arrow-left"></i>Back</button>
+                    <button id="backButton"><i class="fa-solid fa-arrow-left"></i>Back</button>
                     <div class="right-filter-button-container">
                         <button class="secondary-button">Show Map<i class="fa-solid fa-location-dot"></i></button>
                         <button class="secondary-button" id="nearbyAnimalButton">Nearby Animal Attractions<i class="fa-solid fa-paw"></i></button>
@@ -150,7 +151,7 @@
 
             <div class="slide slide-accomadation">
                 <div class="filter-button-container">
-                    <button><i class="fa-solid fa-arrow-left"></i>Back</button>
+                    <button id="backButton"><i class="fa-solid fa-arrow-left"></i>Back</button>
                     <div class="right-filter-button-container">
                         <button>Show Map<i class="fa-solid fa-location-dot"></i></button>
                         <button>Nearby Animal Attractions<i class="fa-solid fa-paw"></i></button>
