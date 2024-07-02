@@ -83,10 +83,10 @@
                         <label for="type">Type:</label>
                         <select name="type" id="type" class="full-width-select">
                             <option value="">Any</option>
-                            <option value="house">House</option>
-                            <option value="hostel">Hostel</option>
-                            <option value="motel">Motel</option>
-                            <option value="hotel">Hotel</option>
+                            <option value="House">House</option>
+                            <option value="Hostel">Hostel</option>
+                            <option value="Motel">Motel</option>
+                            <option value="Hotel">Hotel</option>
                         </select>
                     </div>
                     <!-- Number of stays filtering select container -->
@@ -133,17 +133,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="checkbox-filter-container">
-                        <div class="filter">
-                            <input type="checkbox" id="carPark" name="carPark">
-                            <label for="parking">Car Park</label>
-                        </div>
-                        <div class="filter">
-                            <input type="checkbox" id="kidFriendly" name="kidFriendly">
-                            <label for="kidFriendly">Kid Friendly</label>
-                        </div>
-                    </div>
-                    
+
                 </div>
                 <div id="errorMessage"></div>
                 <button class="primary-button" id="searchButton">Search</button>
@@ -154,13 +144,14 @@
                     <button class="primary-button" id="backButton"><i class="fa-solid fa-arrow-left"></i>Back</button>
                     <div class="right-filter-button-container">
                         <button class="secondary-button">Show Map<i class="fa-solid fa-location-dot"></i></button>
-                        <button class="secondary-button" id="nearbyAnimalButton">Nearby Animal Attractions<i class="fa-solid fa-paw"></i></button>
+                        <button class="secondary-button" id="nearbyAnimalButton">Nearby Animal Attractions<i
+                                class="fa-solid fa-paw"></i></button>
                     </div>
                 </div>
                 <h1>Filtered Results</h1>
                 <div id="results" class="swiper">
                     <div class="swiper-wrapper">
-                        
+
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -168,17 +159,23 @@
 
             <div class="slide slide-accomadation">
                 <div class="filter-button-container">
-                    <button id="backButton"><i class="fa-solid fa-arrow-left"></i>Back</button>
+                    <button class="primary-button" id="backButton"><i class="fa-solid fa-arrow-left"></i>Back</button>
                     <div class="right-filter-button-container">
-                        <button>Show Map<i class="fa-solid fa-location-dot"></i></button>
-                        <button>Nearby Animal Attractions<i class="fa-solid fa-paw"></i></button>
+                        <button class="secondary-button">Show Map<i class="fa-solid fa-location-dot"></i></button>
+                        <button class="secondary-button">Nearby Animal Attractions<i
+                                class="fa-solid fa-paw"></i></button>
                     </div>
                 </div>
-                <div id="accomadationSelected"></div>
+                <div id="accomadationSelected">
+                    <div class="accomadation-selected-container">
+                        
+                    </div>
+
+                </div>
             </div>
 
             <div class="slide slide-booking-info">
-                <button><i class="fa-solid fa-arrow-left"></i>Back</button>
+                <button class="primary-button"><i class="fa-solid fa-arrow-left"></i>Back</button>
                 <div id="bookingInfoResults">
                     <button class="primary-button">Confirm</button>
                 </div>
@@ -211,7 +208,7 @@
     <!-- Font Awwesome JS -->
     <script src="https://kit.fontawesome.com/f6829a4419.js" crossorigin="anonymous"></script>
     <!-- Custom JS -->
-    <script src="./js/script.min.js"></script>
+    <script src="./js/script.js"></script>
     <!-- JAVASCRIPT FILES END -->
 </body>
 
