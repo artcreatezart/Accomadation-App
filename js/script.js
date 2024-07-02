@@ -5,7 +5,7 @@ const accomadation = [{
     accomadationImage1: "./img/accomadation/wellington-hotel-1.webp",
     accomadationImage2: "./img/accomadation/wellington-hotel-2.webp",
     accomadationImage3: "./img/accomadation/wellington-hotel-3.webp",
-    accomadationName: "Cippy Hotel",
+    name: "Cippy Hotel",
     type: "Hotel",
     price: "$157",
     minGuests: "1",
@@ -26,7 +26,7 @@ const accomadation = [{
     accomadationImage1: "./img/accomadation/christchurch-hostel-1.webp",
     accomadationImage2: "./img/accomadation/christchurch-hostel-2.webp",
     accomadationImage3: "./img/accomadation/christchurch-hostel-3.webp",
-    accomadationName: "Bolas's Hostel",
+    name: "Bolas's Hostel",
     type: "Hostel",
     price: "$30",
     minGuests: "1",
@@ -47,7 +47,7 @@ const accomadation = [{
     accomadationImage1: "./img/accomadation/hawkes-motel-1.webp",
     accomadationImage2: "./img/accomadation/hawkes-motel-2.webp",
     accomadationImage3: "./img/accomadation/hawkes-motel-3.webp",
-    accomadationName: "Hawkes Lane Motel",
+    name: "Hawkes Lane Motel",
     type: "Motel",
     price: "$90",
     minGuests: "2",
@@ -68,7 +68,7 @@ const accomadation = [{
     accomadationImage1: "./img/accomadation/auckland-house-1.webp",
     accomadationImage2: "./img/accomadation/auckland-house-2.webp",
     accomadationImage3: "./img/accomadation/auckland-house-3.webp",
-    accomadationName: "Jiolan House",
+    name: "Jiolan House",
     type: "House",
     price: "$240",
     minGuests: "1",
@@ -89,7 +89,7 @@ const accomadation = [{
     accomadationImage1: "./img/accomadation/napier-house-1.webp",
     accomadationImage2: "./img/accomadation/napier-house-2.webp",
     accomadationImage3: "./img/accomadation/napier-house-3.webp",
-    accomadationName: "Dreamy Aquatic House",
+    name: "Dreamy Aquatic House",
     type: "House",
     price: "$240",
     minGuests: "2",
@@ -111,7 +111,7 @@ const accomadation = [{
     accomadationImage1: "./img/accomadation/hamilton-hotel-1.webp",
     accomadationImage2: "./img/accomadation/hamilton-hotel-2.webp",
     accomadationImage3: "./img/accomadation/hamilton-hotel-3.webp",
-    accomadationName: "Luxury Stay Motel",
+    name: "Luxury Stay Motel",
     type: "Motel",
     price: "$90",
     minGuests: "2",
@@ -238,6 +238,7 @@ $(document).ready(function () {
     // populateLocationOptions();
 
     function validateFilters() {
+
         let isValid = true;
         let errorMessage = "";
 
@@ -267,29 +268,34 @@ $(document).ready(function () {
 
 
     function filterAndDisplayAccomadations() {
-
         const selectedLocation = $('#location').val();
-        
         const guests = parseInt($('#guests').val(), 10) || 0;
         const selectedType = $('#type').val();
         const kidFriendly = $('#kidFriendly').val();
         const parking = $('#carPark').val();
         const diffDays = calculateDays();
         console.log(diffDays);
+        // const budgetFilterPrice = calculateBudgetFilterPrice();
+        // console.log(budgetFilterPrice);
 
         const filteredAccomadations = accomadation.filter(accomadation => {
             return (accomadation.location === selectedLocation || selectedLocation === '') &&
-                (accomadation.minGuests >= guests) &&
-                (accomadation.maxGuests <= guests) &&
+                (parseInt(accomadation.minGuests, 10) <= guests) &&
+                (parseInt(accomadation.maxGuests, 10) >= guests) &&
+                (accomadation.kidFriendly === kidFriendly || kidFriendly === '') &&
+                (accomadation.parking === parking || parking === '') &&
                 (accomadation.type === selectedType || selectedType === '') &&
                 (accomadation.minStay <= diffDays) &&
                 (accomadation.maxStay >= diffDays);
+                // (accomadation.minPrice <= budgetFilterPrice) &&
+                // (accomadation.maxPrice >= budgetFilterPrice)
         });
 
 
         console.log(filteredAccomadations);
         displayAccomadations(filteredAccomadations);
     }
+
 
     function calculateDays() {
         const startDate = $("#startDate").datepicker("getDate");
@@ -302,9 +308,19 @@ $(document).ready(function () {
         } else {
             return 0;
         }
+
+
     }
 
-    function displayAccomadations(accomadation) {
+    // function calculateBudgetFilterPrice() {
+    //     const minPrice = $("#minPrice").select("getPrice");
+    //     const maxPrice = $("#maxPrice").select("getPrice");
+
+    // }
+
+
+
+    function displayAccomadations(filteredAccomadations) {
         const accomadationsPerPageSmall = 1;
         const accomadationsPerPageMedium = 2;
         const accomadationsPerPageLarge = 3;
@@ -325,37 +341,37 @@ $(document).ready(function () {
         // empty the swiper
         swiperWrapper.empty();
 
-        for (let i = 0; i < accomadation.length; i += accomadationsPerPage) {
+        for (let i = 0; i < filteredAccomadations.length; i += accomadationsPerPage) {
             const slide = $('<div class="swiper-slide"></div>'); // each slide
 
-            for (let j = i; j < i + accomadationsPerPage && j < accomadations.length; j++) {
-                const accomadation = accomadations[j];
+            for (let j = i; j < i + accomadationsPerPage && j < filteredAccomadations.length; j++) {
+                const accomadation = filteredAccomadations[j];
                 const accomadationElement = `
             <div class="card-container">
             <div class="img-container"></div>
             <div class="card-info-container">
-                <h2>${accomadationName}</h2>
+                <h2>${accomadation.name}</h2>
                 <div class="location-info-container">
-                    <h5>${type}</h5>
+                    <h5>${accomadation.type}</h5>
                     <i class="fa-solid fa-location-dot"></i>
-                    <h4>${location}</h4>
+                    <h4>${accomadation.location}</h4>
                 </div>
                 <div class="card-info-left-container">
                     <div class="guests-info">
                         <i class="fa-solid fa-user"></i>
-                        <h6>${minGuests} - ${maxGuests} Guests</h6>
+                        <h6>${accomadation.minGuests} - ${accomadation.maxGuests} Guests</h6>
                     </div>
                     <div class="nights-info">
                         <i class="fa-solid fa-moon"></i>
-                        <h6>${minStay} - ${maxStay} Nights</h6>
+                        <h6>${accomadation.minStay} - ${accomadation.maxStay} Nights</h6>
                     </div>
                     <div class="ammenites-info">
                         <div class="bedroom-info">
-                            <h6>${bedrooms}</h6>
+                            <h6>${accomadation.bedrooms}</h6>
                             <i class="fa-solid fa-bed"></i>
                         </div>
                         <div class="bathrooms-info">
-                            <h6>${bathrooms}</h6>
+                            <h6>${accomadation.bathrooms}</h6>
                             <i class="fa-solid fa-toilet"></i>
                         </div>
                     </div>
@@ -365,7 +381,7 @@ $(document).ready(function () {
                         <i class="fa-solid fa-car" id="carIcon"></i>
                         <i class="fa-solid fa-child" id="childIcon"></i>
                     </div>
-                    <h2>${price} / night</h2>
+                    <h2>${accomadation.price} / night</h2>
                     <button class="primary-button" id="seeMoreAccomadationButton">See More<i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
@@ -377,6 +393,7 @@ $(document).ready(function () {
         }
         // Destroy the swiper instance
         swiper.destroy(true, true);
+        
         // initalise a new one
         swiper = new Swiper('.swiper', {
             direction: 'horizontal',
@@ -388,17 +405,7 @@ $(document).ready(function () {
         // Rebuild Fullpage to see the new slides
         fullpage_api.reBuild();
 
-        // $("#seeMoreAccomadationButton").click(function () {
-        //     const accomadationId = $(this).data('id');
-        //     console.log($(this).data('id'));
-
-        //     populateSelectedOutput(accomadationId);
-        //     fullpage_api.moveTo(1, 3);
-        // });
     }
-
-
-
 
     // Date picker formats
     $("#startDate").datepicker({
