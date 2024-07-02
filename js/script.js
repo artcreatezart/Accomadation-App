@@ -12,10 +12,12 @@ const accomadation = [{
     maxGuests: "2",
     minStay: "1",
     maxStay: "5",
+    bedrooms: "2",
+    bathrooms: "1",
     parking: "no",
     kidFriendly: "yes",
     location: "Wellington",
-    accomadationInfo: "Here at Cippy Hotel we pride ourselves on service and quality. A perfect location, for a perfect stay. At $157 a night you can get a cosy room with 2 bedrooms with one on-suit, a seperate bathroom, and a spacious lounge and Kitchen. Plus Free Wifi. <br> <br>We offer an inclusive breakfast buffet from 5am to 9am don't miss out.",
+    accomadationInfo: "Here at Cippy Hotel we pride ourselves on service and quality. A perfect location, for a perfect stay. At $157 a night you can get a cosy room with 2 bedrooms, a seperate bathroom, and a spacious lounge and Kitchen. Plus Free Wifi. <br> <br>We offer an inclusive breakfast buffet from 5am to 9am don't miss out.",
     accomadationLongitude: "174.7786201350749",
     accomadationLatitude: "-41.2933537357573",
 
@@ -31,6 +33,8 @@ const accomadation = [{
     maxGuests: "1",
     minStay: "1",
     maxStay: "10",
+    bedrooms: "1",
+    bathrooms: "1",
     parking: "no",
     kidFriendly: "no",
     location: "Auckland",
@@ -50,6 +54,8 @@ const accomadation = [{
     maxGuests: "4",
     minStay: "3",
     maxStay: "10",
+    bedrooms: "2",
+    bathrooms: "2",
     parking: "yes",
     kidFriendly: "no",
     location: "Napier",
@@ -69,6 +75,8 @@ const accomadation = [{
     maxGuests: "4",
     minStay: "2",
     maxStay: "15",
+    bedrooms: "3",
+    bathrooms: "2",
     parking: "yes",
     kidFriendly: "yes",
     location: "Wellington",
@@ -88,6 +96,8 @@ const accomadation = [{
     maxGuests: "6",
     minStay: "3",
     maxStay: "18",
+    bedrooms: "4",
+    bathrooms: "2",
     parking: "no",
     kidFriendly: "yes",
     location: "Napier",
@@ -108,6 +118,8 @@ const accomadation = [{
     maxGuests: "4",
     minStay: "3",
     maxStay: "10",
+    bedrooms: "3",
+    bathrooms: "2",
     parking: "no",
     kidFriendly: "no",
     location: "Christchurch",
@@ -119,7 +131,7 @@ const accomadation = [{
 
 
 const zoos = [{
-    id: 1,
+    zooId: 1,
     zoo: "Wellington Zoo",
     zooImage1: "./img/zoo/wellington-zoo-1.webp",
     zooImage2: "./img/zoo/wellington-zoo-2.webp",
@@ -135,7 +147,7 @@ const zoos = [{
     zooLatitude: "-41.31924239208882",
 
 }, {
-    id: 2,
+    zooId: 2,
     zoo: "Orana Wildlife Park",
     zooImage1: "./img/zoo/christchurch-zoo-1.webp",
     zooImage2: "./img/zoo/christchurch-zoo-2.webp",
@@ -150,7 +162,7 @@ const zoos = [{
     zooLongitude: "172.46307237770145",
     zooLatitude: "-43.467010046710655",
 }, {
-    id: 3,
+    zooId: 3,
     zoo: "Hawkes Bay Farmyard Zoo",
     zooImage1: "./img/zoo/hawkes-zoo-1.webp",
     zooImage2: "./img/zoo/hawkes-zoo-2.webp",
@@ -165,7 +177,7 @@ const zoos = [{
     zooLongitude: "176.83413325329315",
     zooLatitude: "-39.73983213420209",
 }, {
-    id: 4,
+    zooId: 4,
     zoo: "National Aquarium of New Zealand",
     zooImage1: "./img/zoo/napier-zoo-1.webp",
     zooImage2: "./img/zoo/napier-zoo-2.webp",
@@ -180,7 +192,7 @@ const zoos = [{
     zooLongitude: "176.91896097441412",
     zooLatitude: "-39.500558075187094",
 }, {
-    id: 5,
+    zooId: 5,
     zoo: "Auckland Zoo",
     zooImage1: "./img/zoo/auckland-zoo-1.webp",
     zooImage2: "./img/zoo/auckland-zoo-2.webp",
@@ -204,20 +216,26 @@ $(document).ready(function () {
         fixedElements: "#navbar",
     });
 
-    // Location Filtering :
-    function populateLocationOptions() {
-        const locations = Array.from(new Set(accomadation.map(accomadation => accomadation.location)));
-        locations.sort();
-        const locationSelect = $('#location');
-        locationSelect.empty();
-        locationSelect.append(`<option value=""></option>`);
-        locations.forEach(location => {
-            locationSelect.append(`<option value="${location}">${location}</option>`);
-        });
-    }
+    fullpage_api.setAllowScrolling(false);
+
+    // Swiper Init:
+    let swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 
 
-    populateLocationOptions();
+    // populateLocationOptions();
 
     function validateFilters() {
         let isValid = true;
@@ -231,9 +249,13 @@ $(document).ready(function () {
             isValid = false;
             errorMessage += "Please Select the Number of Guests.<br>";
         }
-        if ($("#startDate").val(), $("#endDate").val() === "") {
+        if ($("#startDate").val() === "") {
             isValid = false;
-            errorMessage += "Please Select Duration of Stay.<br>";
+            errorMessage += "Please Select Start Date of Stay.<br>";
+        }
+        if ($("#endDate").val() === "") {
+            isValid = false;
+            errorMessage += "Please Select End Date of Stay.<br>";
         }
         if (!isValid) {
             $('#errorMessage').html(errorMessage).show();
@@ -243,18 +265,27 @@ $(document).ready(function () {
         return isValid;
     }
 
+
     function filterAndDisplayAccomadations() {
-        const location = $('#location').val();
+
+        const selectedLocation = $('#location').val();
+        
         const guests = parseInt($('#guests').val(), 10) || 0;
-        const type = $('#type').val();
-        const diffDays = caculateDays();
+        const selectedType = $('#type').val();
+        const kidFriendly = $('#kidFriendly').val();
+        const parking = $('#carPark').val();
+        const diffDays = calculateDays();
         console.log(diffDays);
 
         const filteredAccomadations = accomadation.filter(accomadation => {
-            return (location === 'any' || accomadation.location === location) &&
+            return (accomadation.location === selectedLocation || selectedLocation === '') &&
+                (accomadation.minGuests >= guests) &&
+                (accomadation.maxGuests <= guests) &&
+                (accomadation.type === selectedType || selectedType === '') &&
                 (accomadation.minStay <= diffDays) &&
                 (accomadation.maxStay >= diffDays);
         });
+
 
         console.log(filteredAccomadations);
         displayAccomadations(filteredAccomadations);
@@ -264,14 +295,116 @@ $(document).ready(function () {
         const startDate = $("#startDate").datepicker("getDate");
         const endDate = $("#endDate").datepicker("getDate");
 
+        if (startDate && endDate) {
+            const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+            const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            return diffDays;
+        } else {
+            return 0;
+        }
+    }
+
+    function displayAccomadations(accomadation) {
+        const accomadationsPerPageSmall = 1;
+        const accomadationsPerPageMedium = 2;
+        const accomadationsPerPageLarge = 3;
+
+        function getAccomadationsPerPage() {
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                return accomadationsPerPageSmall;
+            } else if (window.matchMedia('(max-width: 1200px)').matches) {
+                return accomadationsPerPageMedium;
+            } else {
+                return accomadationsPerPageLarge;
+            }
+        }
+
+        let accomadationsPerPage = getAccomadationsPerPage();
+
+        const swiperWrapper = $('.swiper-wrapper');
+        // empty the swiper
+        swiperWrapper.empty();
+
+        for (let i = 0; i < accomadation.length; i += accomadationsPerPage) {
+            const slide = $('<div class="swiper-slide"></div>'); // each slide
+
+            for (let j = i; j < i + accomadationsPerPage && j < accomadations.length; j++) {
+                const accomadation = accomadations[j];
+                const accomadationElement = `
+            <div class="card-container">
+            <div class="img-container"></div>
+            <div class="card-info-container">
+                <h2>${accomadationName}</h2>
+                <div class="location-info-container">
+                    <h5>${type}</h5>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>${location}</h4>
+                </div>
+                <div class="card-info-left-container">
+                    <div class="guests-info">
+                        <i class="fa-solid fa-user"></i>
+                        <h6>${minGuests} - ${maxGuests} Guests</h6>
+                    </div>
+                    <div class="nights-info">
+                        <i class="fa-solid fa-moon"></i>
+                        <h6>${minStay} - ${maxStay} Nights</h6>
+                    </div>
+                    <div class="ammenites-info">
+                        <div class="bedroom-info">
+                            <h6>${bedrooms}</h6>
+                            <i class="fa-solid fa-bed"></i>
+                        </div>
+                        <div class="bathrooms-info">
+                            <h6>${bathrooms}</h6>
+                            <i class="fa-solid fa-toilet"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-info-right-container">
+                    <div class="extra-info">
+                        <i class="fa-solid fa-car" id="carIcon"></i>
+                        <i class="fa-solid fa-child" id="childIcon"></i>
+                    </div>
+                    <h2>${price} / night</h2>
+                    <button class="primary-button" id="seeMoreAccomadationButton">See More<i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+              `;
+                slide.append(accomadationElement);
+            }
+            swiperWrapper.append(slide);
+        }
+        // Destroy the swiper instance
+        swiper.destroy(true, true);
+        // initalise a new one
+        swiper = new Swiper('.swiper', {
+            direction: 'horizontal',
+            pagination: {
+                el: '.swiper-pagination',
+            }
+        });
+
+        // Rebuild Fullpage to see the new slides
+        fullpage_api.reBuild();
+
+        // $("#seeMoreAccomadationButton").click(function () {
+        //     const accomadationId = $(this).data('id');
+        //     console.log($(this).data('id'));
+
+        //     populateSelectedOutput(accomadationId);
+        //     fullpage_api.moveTo(1, 3);
+        // });
     }
 
 
+
+
     // Date picker formats
-    $("startDate").datepicker({
-        dateFormat: "dd/mm/yyyy"
+    $("#startDate").datepicker({
+        dateFormat: "dd/mm/yy"
     });
-    $("endDate").datepicker({
+    $("#endDate").datepicker({
         dateFormat: "dd/mm/yy"
     });
 

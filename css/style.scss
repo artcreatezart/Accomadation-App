@@ -20,11 +20,89 @@ $secondary-color: #407D3B;
 $tertiary-color: #F6B568;
 $main-font-color: #FFFFFF;
 
+$primary-button-hover-color: rgba(17, 42, 15, 0.8);
+$secondary-button-hover-color: rgba(246, 181, 104, 0.56);
 
+$header-font-family: "Caveat Brush";
+$sub-header-font-family: "Allerta";
+$body-font-family: "Roboto";
+$body-font-weight-light: 300;
+$body-font-weight-regular: 400;
+
+// All Repeated Elements Styling Start
+h1 {
+    font-family: $header-font-family;
+    color: $main-font-color;
+}
+
+h2, 
+h3,
+label {
+    font-family: $sub-header-font-family;
+    color: $main-font-color;
+}
+
+h4,
+h5,
+h6,
+p {
+    font-family: $body-font-family;
+    color: $main-font-color;
+    font-weight: $body-font-weight-regular;
+}
+
+h6 {
+    font-weight: $body-font-weight-light;
+}
+
+button {
+    padding: 15px 20px;
+    // width: 200px;
+    // height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    border-radius: 10px;
+    
+}
+
+.primary-button {
+    background-color: $secondary-color;
+    color: #FFFFFF;
+    .fa-solid {
+        color: $main-font-color;
+    }
+}
+
+.primary-button:hover {
+    background-color: $primary-button-hover-color;
+    color: #ffffff7b;
+}
+
+.secondary-button {
+    background-color: $tertiary-color;
+    color: $primary-color;
+    .fa-solid {
+        color: $primary-color;
+    }
+}
+
+.secondary-button:hover {
+    background-color: $secondary-button-hover-color;
+}
+
+.fa-solid {
+    color: $tertiary-color;
+    font-size: 2em;
+}
+
+// All Repeated Elements Styling End
 
 // Body Styling Consisent throughout whole website
 body {
-    background-image: linear-gradient(rgba(27, 26, 34, 0.2), rgba(27, 26, 34, 0.2)), url("/img/other/background.webp");
+    background-image: linear-gradient(rgba(180, 178, 188, 0.2), rgba(205, 204, 210, 0.2)), url("/img/other/background.webp");
     background-position: center;
     background-size: cover;
     width: 100vw;
@@ -45,7 +123,6 @@ body {
         background-image: url("/img/other/logo.webp");
         background-position: center;
         background-size: cover;
-
     }
 
     .right-nav {
@@ -55,13 +132,21 @@ body {
             display: flex;
             justify-content: space-between;
             color: $main-font-color;
-
         }
     }
 }
 
-.slide,
-.section {
-    height: 100%;
-    width: 100%;
+.swiper {
+    max-width: 80vw;
+    max-height: 80vh;
+}
+
+.swiper-wrapper {
+    height: 80vh;
+    width: 80vw !important;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
