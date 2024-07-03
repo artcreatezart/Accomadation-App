@@ -304,8 +304,13 @@ $(document).ready(function () {
             return 0;
         }
 
-
     }
+
+    $(document).on('click', '#bookButton', function () {
+        const selectedAccomodationId = $(this).closest('.swiper-slide').index();
+        populateSelectedOutput(filteredAccomodations[selectedAccomodationId]);
+        fullpage_api.moveTo(2, 2);
+    });
 
 
     function displayAccomadations(filteredAccomadations) {
@@ -378,6 +383,12 @@ $(document).ready(function () {
             }
             swiperWrapper.append(slide);
         }
+        $("#bookButton").click(function () {
+            const selectedAccomadationId = $(this).closest('.swiper-slide').index();
+            populateSelectedOutput(filteredAccomadations[selectedAccomadationId]);
+            fullpage_api.moveTo(2, 2);
+        });
+
         // Destroy the swiper
         swiper.destroy(true, true);
 
@@ -486,12 +497,16 @@ $(document).ready(function () {
                     <input type="checkbox" id="dinnerCheck" value="30">
                     <label for="dinner">Dinner - $30</label>
                 </div>
-                <button class="primary-button">Add Meal Plan</button>
+                <button class="primary-button" id="addMealPlanButton">Add Meal Plan</button>
             </div>
         </div>`;
 
             outputAccomadationSelected.empty();
             outputAccomadationSelected.append(slideOutputHtml);
+
+            $(document).on('click', '#addMealPlanButton', function () {
+
+            });
         }
     }
 
@@ -532,47 +547,12 @@ $(document).ready(function () {
         fullpage_api.moveTo(2, 2);
     });
 
-    // BOOKING INFO OUTPUT
-
-
-    function populateBookingInfoOutput(accomadation) {
-        const outputBookingAccomadationSelected = $("#bookingInfoOutput");
-        const slideBookingOutputHtml = ` <div class="booking-info-container">
-            <h1>Booking Info</h1>
-            <div class="booking-info-section">
-                <h4>Accomadation:</h4>
-                <h3>${accomadation.name}</h3>
-            </div>
-            <div class="booking-info-section">
-                <h4>Location:</h4>
-                <h3>${accomadation.location}</h3>
-            </div>
-            <div class="booking-info-section">
-                <h4>Guests:</h4>
-                <h3></h3>
-            </div>
-            <div class="booking-info-section">
-                <h4>Nights:</h4>
-                <h3>diffDays</h3>
-            </div>
-            <div class="booking-info-section">
-                <h4>Meal Plan:</h4>
-                <h3>mealselected</h3>
-            </div>
-        </div>
-        <h2>Total Price: <span id="totalPrice"></span></h2>
-        <button class="primary-button">Confirm</button>
-            `;
-
-        outputBookingAccomadationSelected.empty();
-        outputBookingAccomadationSelected.html(slideBookingOutputHtml);
-    }
 
 
     $(document).on('click', '#bookButton', function () {
         console.log("Book button clicked");
         const accomodationId = $(this).data('id');
-        console.log("Data ID:", accomodation);
+        const filteredAccommodation = accomodation[accomodationId];
         const diffDays = calculateDays();
 
         var mealPrice = 0;
@@ -588,13 +568,47 @@ $(document).ready(function () {
         }
 
 
-        populateBookingInfoOutput(accomodationId);
+        populateBookingInfoOutput(accomodation);
         fullpage_api.moveTo(2, 3);
 
     });
 
-    $("#startDate, #endDate").datepicker();
+    // $("#startDate, #endDate").datepicker();
 
 
+    // BOOKING INFO OUTPUT
+
+    function populateBookingInfoOutput(accomadation) {
+        const outputBookingAccomadationSelected = $("#bookingInfoOutput");
+        const slideBookingOutputHtml = ` <div class="booking-info-container">
+            <h1>Booking Info</h1>
+            <div class="booking-info-section">
+                <h4>Accomadation:</h4>
+                ${accommodation && accommodation.name ? `<h3>${accommodation.name}</h3>` : ''}
+            </div>
+            <div class="booking-info-section">
+                <h4>Location:</h4>
+                <h3>${accomadation.location}</h3>
+            </div>
+            <div class="booking-info-section">
+                <h4>Guests:</h4>
+                <h3>${$("#guests").val()}</h3>
+            </div>
+            <div class="booking-info-section">
+                <h4>Nights:</h4>
+                <h3>${calculateDays()}</h3>
+            </div>
+            <div class="booking-info-section">
+                <h4>Meal Plan:</h4>
+                <h3>mealselected</h3>
+            </div>
+        </div>
+        <h2>Total Price: <span id="totalPrice"></span></h2>
+        <button class="primary-button">Confirm</button>
+            `;
+
+        outputBookingAccomadationSelected.empty();
+        outputBookingAccomadationSelected.html(slideBookingOutputHtml);
+    }
 
 });
