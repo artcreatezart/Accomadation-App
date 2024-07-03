@@ -307,11 +307,6 @@ $(document).ready(function () {
 
     }
 
-    // function calculateBudgetFilterPrice() {
-    //     const minPrice = $("#minPrice").select("getPrice");
-    //     const maxPrice = $("#maxPrice").select("getPrice");
-
-    // 
 
     function displayAccomadations(filteredAccomadations) {
         const accomadationsPerPageSmall = 1;
@@ -398,61 +393,63 @@ $(document).ready(function () {
 
         $("#seeMoreAccomadationButton").click(function () {
             const accomadationId = $(this).data('id');
+            const selectedAccomadationId = $(this).closest('.swiper-slide').index(); // Get the index of the clicked slide
+            populateSelectedOutput(filteredAccomadations[selectedAccomadationId]);
             console.log(accomadationId);
 
-            populateSelectedOutput(accomadationId);
+            populateSelectedOutput(filteredAccomadations[selectedAccomadationId]);
             fullpage_api.moveTo(2, 2);
         });
 
-        function populateSelectedOutput(selectedBookingId) {
+        function populateSelectedOutput(accomadation) {
             const outputAccomadationSelected = $("#accomadationSelected");
             const slideOutputHtml = `<div class="left-accomadation-selected-container">
             <div class="accomadation-selected-img"></div>
             <div class="left-accomadation-selected-info">
                 <div class="left-accomadation-selected-name-info">
-                    <h1>${accomadation[selectedBookingId - 1].name}</h1>
+                    <h1>${accomadation.name}</h1>
                     <div class="left-accomadation-selected-location-info">
-                        <h5>${accomadation[selectedBookingId - 1].type}</h5>
+                        <h5>${accomadation.type}</h5>
                         <i class="fa-solid fa-location-dot"></i>
-                        <h4>${accomadation[selectedBookingId - 1].location}</h4>
+                        <h4>${accomadation.location}</h4>
                     </div>
                 </div>
-                <p>${accomadation[selectedBookingId - 1].accomadationInfo}</p>
+                <p>${accomadation.accomadationInfo}</p>
                 <div class="left-accomadation-selected-bottom-info-section">
                     <div class="left-accomadation-selected-ammenities">
                         <div class="left-left-accomadation-selected-ammenities">
                             <div class="guests-info">
                                 <i class="fa-solid fa-user"></i>
-                                <h6>${accomadation[selectedBookingId - 1].minGuests} - ${accomadation[selectedBookingId - 1].maxGuests} Guests</h6>
+                                <h6>${accomadation.minGuests} - ${accomadation.maxGuests} Guests</h6>
                             </div>
                             <div class="nights-info">
                                 <i class="fa-solid fa-moon"></i>
-                                <h6>${accomadation[selectedBookingId - 1].minStay} - ${accomadation[selectedBookingId - 1].maxStay} Nights</h6>
+                                <h6>${accomadation.minStay} - ${accomadation.maxStay} Nights</h6>
                             </div>
                             <div class="selected-accomadation-ammenites-info">
                                 <div class="bedroom-info">
-                                    <h6>${accomadation[selectedBookingId - 1].bedrooms}</h6>
+                                    <h6>${accomadation.bedrooms}</h6>
                                     <i class="fa-solid fa-bed"></i>
                                 </div>
                                 <div class="bathrooms-info">
-                                    <h6>${accomadation[selectedBookingId - 1].bathrooms}</h6>
+                                    <h6>${accomadation.bathrooms}</h6>
                                     <i class="fa-solid fa-toilet"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="left-right-accomadation-selected-ammenities">
                             <div class="parking-info">
-                                ${accomadation[selectedBookingId - 1].parking ? '<i class="fa-solid fa-car" id="carIcon"></i>'
+                                ${accomadation.parking ? '<i class="fa-solid fa-car" id="carIcon"></i>'
                                 :
                                 ''}
-                                ${accomadation[selectedBookingId - 1].parking ? '<h6>CarPark <br> Available</h6>'
+                                ${accomadation.parking ? '<h6>CarPark <br> Available</h6>'
                                 :
                                 ''}
                             </div>
 
                             <div class="kid-friendly-info">
-                                ${accomadation[selectedBookingId - 1].kidFriendly ? '<i class="fa-solid fa-child" id="childIcon"></i>' : ''}
-                                ${accomadation[selectedBookingId - 1].kidFriendly ? '<h6>Kid <br> Friendly</h6>' : ''}
+                                ${accomadation.kidFriendly ? '<i class="fa-solid fa-child" id="childIcon"></i>' : ''}
+                                ${accomadation.kidFriendly ? '<h6>Kid <br> Friendly</h6>' : ''}
                             </div>
 
                         </div>
@@ -460,7 +457,7 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="right-accomadation-selected-bottom-info-section">
-                    <h2>${accomadation[selectedBookingId - 1].price} / night</h2>
+                    <h2>${accomadation.price} / night</h2>
                     <button class="primary-button" id="bookButton" >Book</button>
                 </div>
 
@@ -520,25 +517,35 @@ $(document).ready(function () {
         }
     });
 
-    $("#backButton").click(function (e) {
+    $("#backToFiltersButton").click(function (e) {
         e.preventDefault();
         fullpage_api.moveTo(2, 0);
+    });
+
+    $("#backToFilteredAccomadationButton").click(function (e) {
+        e.preventDefault();
+        fullpage_api.moveTo(2, 1);
+    });
+
+    $("#backToSelectedAccomadationButton").click(function (e) {
+        e.preventDefault();
+        fullpage_api.moveTo(2, 2);
     });
 
     // BOOKING INFO OUTPUT
 
 
-    function populateBookingInfoOutput(selectedBookingId) {
+    function populateBookingInfoOutput(accomadation) {
         const outputBookingAccomadationSelected = $("#bookingInfoOutput");
         const slideBookingOutputHtml = ` <div class="booking-info-container">
             <h1>Booking Info</h1>
             <div class="booking-info-section">
                 <h4>Accomadation:</h4>
-                <h3>${accomadation[selectedBookingId - 1].name}</h3>
+                <h3>${accomadation.name}</h3>
             </div>
             <div class="booking-info-section">
                 <h4>Location:</h4>
-                <h3>${accomadation[selectedBookingId - 1].location}</h3>
+                <h3>${accomadation.location}</h3>
             </div>
             <div class="booking-info-section">
                 <h4>Guests:</h4>
@@ -558,35 +565,32 @@ $(document).ready(function () {
             `;
 
         outputBookingAccomadationSelected.empty();
-        outputBookingAccomadationSelected.append(slideBookingOutputHtml);
+        outputBookingAccomadationSelected.html(slideBookingOutputHtml);
     }
 
 
-    $(document).on('click', '#bookButton', function() {
+    $(document).on('click', '#bookButton', function () {
         console.log("Book button clicked");
-        const accommodationId = $(this).data('id');
-        console.log("Data ID:", accommodationId);
-        var diffDays = caculateDays();
+        const accomodationId = $(this).data('id');
+        console.log("Data ID:", accomodation);
+        const diffDays = calculateDays();
 
         var mealPrice = 0;
         if ($("#breakfastCheck").is(':checked')) mealPrice += parseFloat($("#breakfastCheck").val());
         if ($("#lunchCheck").is(':checked')) mealPrice += parseFloat($("#lunchCheck").val());
         if ($("#dinnerCheck").is(':checked')) mealPrice += parseFloat($("#dinnerCheck").val());
 
-        // if (diffDays < accomadation[selectedBookingId - 1].minStay || diffDays > accomadation[selectedId - 1].maxStay) {
-            
-        // }
 
-        if ((mealPrice) && (diffDays) && $("#guests")) {
-            var perPerson = (accomadation[selectedBookingId - 1].price * diffDays) + (mealPrice * diffDays);
-            var totalPrice = perPerson * $("#guests");
+        if ((mealPrice) && (diffDays) && $("#guests").val()) {
+            var perPerson = (accomadation.price * diffDays) + (mealPrice * diffDays);
+            var totalPrice = perPerson * $("#guests").val();
             $("#totalPrice").text(totalPrice.toFixed(2));
         }
 
 
-        populateBookingInfoOutput(accommodationId);
+        populateBookingInfoOutput(accomodationId);
         fullpage_api.moveTo(2, 3);
-    
+
     });
 
     $("#startDate, #endDate").datepicker();
