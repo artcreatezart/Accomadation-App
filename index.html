@@ -13,8 +13,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Jquery UI CSS -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.3/themes/smoothness/jquery-ui.css">
-    <!-- MapBox CSS -->
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
     <!-- CSS FILES END -->
@@ -71,7 +69,6 @@
                     <div class="filter">
                         <label for="guests">Guests:</label>
                         <select name="guests" id="guests" class="full-width-select" required>
-                            <option value=""></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -176,8 +173,7 @@
 
             <div class="slide slide-booking-info">
                 <button class="primary-button"><i class="fa-solid fa-arrow-left"></i>Back</button>
-                <div id="bookingInfoResults">
-                    <button class="primary-button">Confirm</button>
+                <div id="bookingInfoOutput">
                 </div>
             </div>
 
@@ -187,8 +183,7 @@
                     <h1>Booking Successful</h1>
                 </div>
             </div>
-
-
+            
         </div>
     </div>
 
@@ -203,8 +198,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- MapBox -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <!-- Font Awwesome JS -->
     <script src="https://kit.fontawesome.com/f6829a4419.js" crossorigin="anonymous"></script>
     <!-- Custom JS -->
