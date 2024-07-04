@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <!-- CSS FILES START -->
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -22,8 +23,10 @@
 </head>
 
 <body>
+
     <!-- NavBar -->
     <nav id="navbar">
+
         <!-- Logo Container -->
         <div class="left-nav-logo"></div>
 
@@ -35,28 +38,36 @@
                 <li>Animal Attractions</li>
             </ul>
         </div>
+
     </nav>
 
     <!-- Full Pgae for whole website -->
     <div id="fullpage">
+
         <!-- Home Section (Landing Page) -->
         <div class="section section-home" id="home">
+
             <!-- Left container hold logo and quote -->
             <div class="left-container">
                 <div class="home-logo"></div>
                 <h1 class="left-container-logo">“There's more to find in Aotearoa New Zealand.”</h1>
             </div>
+
             <div class="right-container">
                 <div class="home-qualmark-logo"></div>
                 <button id="findARoomButton" class="primary-button">Find a Room</button>
             </div>
+
         </div>
 
 
         <!-- Filters  -->
         <div class="section section-filters" id="filters">
+
             <div class="slide slide-filters">
+
                 <div class="filters-container">
+                    
                     <!-- Location Filtering Select Container -->
                     <div class="filter">
                         <label for="location">Location:</label>
@@ -68,6 +79,7 @@
                             <option value="Auckland">Auckland</option>
                         </select>
                     </div>
+
                     <!-- Guests Filtering Select Container -->
                     <div class="filter">
                         <label for="guests">Guests:</label>
@@ -78,6 +90,7 @@
                             <option value="4">4</option>
                         </select>
                     </div>
+
                     <!-- Type Filtering Select Container -->
                     <div class="filter">
                         <label for="type">Type:</label>
@@ -89,21 +102,27 @@
                             <option value="Hotel">Hotel</option>
                         </select>
                     </div>
+
                     <!-- Number of stays filtering select container -->
                     <div class="filter-container-select-dates">
+
                         <!-- number of stays Filtering Select Container -->
                         <!-- Start Date / Min Stay -->
                         <div class="filter smaller-filter">
                             <label for="startDate">Start Date:</label>
                             <input type="text" id="startDate" name="startDate" class="full-width-select" required>
                         </div>
+
                         <!-- End Date / Max Stay -->
                         <div class="filter smaller-filter">
                             <label for="endDate">End Date:</label>
                             <input type="text" id="endDate" name="endDate" class="full-width-select" required>
                         </div>
+
                     </div>
+                    
                     <div class="filter-container-select-price">
+
                         <!-- Min Price Filtering Select Container -->
                         <div class="filter smaller-filter">
                             <label for="minPrice">Min Price:</label>
@@ -118,6 +137,7 @@
                                 <option value="250">$250</option>
                             </select>
                         </div>
+
                         <!-- Max Price Filtering Select Container -->
                         <div class="filter smaller-filter">
                             <label for="maxPrice">Max Price:</label>
@@ -132,62 +152,77 @@
                                 <option value="250">$250</option>
                             </select>
                         </div>
+
                     </div>
 
                 </div>
+
                 <div id="errorMessage"></div>
+
                 <button class="primary-button" id="searchButton">Search</button>
+
             </div>
 
             <div class="slide slide-results">
-                <div class="filter-button-container">
-                    <button class="primary-button" id="backToFiltersButton"><i
-                            class="fa-solid fa-arrow-left"></i>Back</button>
-                    <div class="right-filter-button-container">
-                        <button class="secondary-button">Show Map<i class="fa-solid fa-location-dot"></i></button>
-                        <button class="secondary-button" id="nearbyAnimalButton">Nearby Animal Attractions<i
-                                class="fa-solid fa-paw"></i></button>
-                    </div>
-                </div>
-                <h1>Filtered Results</h1>
-                <div id="results" class="swiper">
-                    <div class="swiper-wrapper">
 
+                <div class="filter-button-container">
+
+                    <button class="primary-button" id="backToFiltersButton"> <i class="fa-solid fa-arrow-left"></i> Back</button>
+
+                    <div class="right-filter-button-container">
+                        <button class="secondary-button">Show Map <i class="fa-solid fa-location-dot"></i> </button>
+                        <button class="secondary-button" id="nearbyAnimalButton">Nearby Animal Attractions<i class="fa-solid fa-paw"></i> </button>
                     </div>
-                    <div class="swiper-pagination"></div>
+
                 </div>
+
+                <h1>Filtered Results</h1>
+
+                <div id="results" class="swiper">
+
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+
+                </div>
+
             </div>
 
             <div class="slide slide-accomadation">
+
                 <div class="filter-button-container">
-                    <button class="primary-button" id="backToFilteredAccomadationButton"><i
-                            class="fa-solid fa-arrow-left"></i>Back</button>
+
+                    <button class="primary-button" id="backToFilteredAccomadationButton"> <i class="fa-solid fa-arrow-left"></i> Back</button>
+
                     <div class="right-filter-button-container">
                         <button class="secondary-button">Show Map<i class="fa-solid fa-location-dot"></i></button>
-                        <button class="secondary-button">Nearby Animal Attractions<i
-                                class="fa-solid fa-paw"></i></button>
+                        <button class="secondary-button">Nearby Animal Attractions <i class="fa-solid fa-paw"></i> </button>
                     </div>
+
                 </div>
+
                 <div id="accomadationSelected">
-                    <div class="accomadation-selected-container">
 
-                    </div>
+                    <div class="accomadation-selected-container"></div>
 
                 </div>
+
             </div>
 
             <div class="slide slide-booking-info">
-                <button class="primary-button" id="backToSelectedAccomadationButton"><i class="fa-solid fa-arrow-left"></i>Back</button>
-                <div id="bookingInfoOutput">
-                </div>
+                <button class="primary-button" id="backToSelectedAccomadationButton"> <i class="fa-solid fa-arrow-left"></i> Back</button>
+
+                <div id="bookingInfoOutput"></div>
+
             </div>
 
             <div class="slide slide-confirmation-success">
+
                 <div class="confirmation-success-container">
                     <i class="fa-solid fa-paw"></i>
                     <h1>Booking Successful</h1>
                     <button class="primary-button" id="backHomeButton">Back To Home</button>
                 </div>
+
             </div>
 
         </div>
@@ -209,6 +244,7 @@
     <!-- Custom JS -->
     <script src="./js/script.min.js"></script>
     <!-- JAVASCRIPT FILES END -->
+    
 </body>
 
 </html>
