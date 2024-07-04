@@ -259,7 +259,7 @@ $ ( document ) .ready ( function () {
         const accomadationElement = `
                     <div class="card-container">
 
-                      <div class="img-container"></div>
+                        <div class="img-container"></div>
 
                         <div class="card-info-container">
                           <h2>${ accomadation.name }</h2>
@@ -306,13 +306,12 @@ $ ( document ) .ready ( function () {
                               </div>
 
                               <h2>${ accomadation.price } / night</h2>
-                              <button class="primary-button" id="seeMoreAccomadationButton" data-id="${accomadation.id}">See More<i class="fa-solid fa-arrow-right"></i></button>
+                              <button class="primary-button" id="seeMoreAccomadationButton" data-id="${ accomadation.id }">See More<i class="fa-solid fa-arrow-right"></i></button>
 
                             </div>
 
-                        </div>
+                          </div>
 
-                      </div>
 
                     </div>
                 `;
@@ -353,8 +352,8 @@ $ ( document ) .ready ( function () {
     });
 
     // Populate selected Accomadation Html
-    function populateSelectedOutput(accomadation) {
-    const outputAccomadationSelected = $("#accomadationSelected");
+    function populateSelectedOutput ( accomadation ) {
+    const outputAccomadationSelected = $ ( "#accomadationSelected" );
     const slideOutputHtml = `
         <div class="left-accomadation-selected-container">
 
@@ -363,17 +362,17 @@ $ ( document ) .ready ( function () {
             <div class="left-accomadation-selected-info">
 
                 <div class="left-accomadation-selected-name-info">
-                    <h1>${accomadation.name}</h1>
+                    <h1>${ accomadation.name }</h1>
 
                     <div class="left-accomadation-selected-location-info">
-                        <h5>${accomadation.type}</h5>
+                        <h5>${ accomadation.type }</h5>
                         <i class="fa-solid fa-location-dot"></i>
-                        <h4>${accomadation.location}</h4>
+                        <h4>${ accomadation.location }</h4>
                     </div>
 
                 </div>
 
-                <p>${accomadation.accomadationInfo}</p>
+                <p>${ accomadation.accomadationInfo }</p>
 
                 <div class="left-accomadation-selected-bottom-info-section">
 
@@ -383,23 +382,23 @@ $ ( document ) .ready ( function () {
 
                             <div class="guests-info">
                                 <i class="fa-solid fa-user"></i>
-                                <h6>${accomadation.minGuests} - ${accomadation.maxGuests} Guests</h6>
+                                <h6>${ accomadation.minGuests } - ${ accomadation.maxGuests } Guests</h6>
                             </div>
 
                             <div class="nights-info">
                                 <i class="fa-solid fa-moon"></i>
-                                <h6>${accomadation.minStay} - ${accomadation.maxStay} Nights</h6>
+                                <h6>${ accomadation.minStay } - ${ accomadation.maxStay } Nights</h6>
                             </div>
 
                             <div class="selected-accomadation-ammenites-info">
 
                                 <div class="bedroom-info">
-                                    <h6>${accomadation.bedrooms}</h6>
+                                    <h6>${ accomadation.bedrooms }</h6>
                                     <i class="fa-solid fa-bed"></i>
                                 </div>
 
                                 <div class="bathrooms-info">
-                                    <h6>${accomadation.bathrooms}</h6>
+                                    <h6>${ accomadation.bathrooms }</h6>
                                     <i class="fa-solid fa-toilet"></i>
                                 </div>
 
@@ -410,13 +409,13 @@ $ ( document ) .ready ( function () {
                         <div class="left-right-accomadation-selected-ammenities">
 
                             <div class="parking-info">
-                                ${accomadation.parking ? '<i class="fa-solid fa-car" id="carIcon"></i>' : ''}
-                                ${accomadation.parking ? '<h6>CarPark <br> Available</h6>' : ''}
+                                ${ accomadation.parking ? '<i class="fa-solid fa-car" id="carIcon"></i>' : '' }
+                                ${ accomadation.parking ? '<h6>CarPark <br> Available</h6>' : '' }
                             </div>
 
                             <div class="kid-friendly-info">
-                                ${accomadation.kidFriendly ? '<i class="fa-solid fa-child" id="childIcon"></i>' : ''}
-                                ${accomadation.kidFriendly ? '<h6>Kid <br> Friendly</h6>' : ''}
+                                ${ accomadation.kidFriendly ? '<i class="fa-solid fa-child" id="childIcon"></i>' : '' }
+                                ${ accomadation.kidFriendly ? '<h6>Kid <br> Friendly</h6>' : '' }
                             </div>
 
                         </div>
@@ -426,8 +425,8 @@ $ ( document ) .ready ( function () {
                 </div>
 
                 <div class="right-accomadation-selected-bottom-info-section">
-                    <h2>${accomadation.price} / night</h2>
-                    <button class="primary-button" id="bookButton" data-id="${accomadation.id}">Book</button>
+                    <h2>${ accomadation.price}  / night</h2>
+                    <button class="primary-button" id="bookButton" data-id="${ accomadation.id }">Book</button>
                 </div>
 
             </div>
@@ -471,8 +470,8 @@ $ ( document ) .ready ( function () {
 
     `;
 
-    outputAccomadationSelected.empty();
-    outputAccomadationSelected.append(slideOutputHtml);
+    outputAccomadationSelected.empty ();
+    outputAccomadationSelected.append ( slideOutputHtml );
 
     // Update Meal price after checked
     function updateMealPrice() {
@@ -484,10 +483,10 @@ $ ( document ) .ready ( function () {
     }
 
     $ ( document ) .on ( 'change', '#breakfastCheck, #lunchCheck, #dinnerCheck', function () {
-        const mealPrice = updateMealPrice();
+        const mealPrice = updateMealPrice ();
     });
 
-    $ ( document) .on ( 'click', '#bookButton', function () {
+    $ ( document ) .on ( 'click', '#bookButton', function () {
         const selectedAccomadation = accomadation;
         const diffDays = calculateDays ();
         const guests = parseInt ( $ ( "#guests" ) .val () );
@@ -592,7 +591,6 @@ $ ( document ) .ready ( function () {
                 ${ $ ( "#lunchCheck" ) .is ( ':checked' ) ? '<h6>Lunch</h6>' : '' }
                 ${ $ ( "#dinnerCheck" ) .is ( ':checked' ) ? '<h6>Dinner</h6>' : '' }
                 ${ $ ( "#breakfastCheck" ).prop('checked') === false && $( "#lunchCheck" ).prop( 'checked' ) === false && $( "#dinnerCheck" ).prop( 'checked' ) === false ? '<h6>No Plan</h6>' : ''}
-
 
               </div>
 
