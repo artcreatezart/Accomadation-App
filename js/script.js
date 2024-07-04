@@ -193,7 +193,7 @@ $ ( document ) .ready ( function () {
     const diffDays = calculateDays();
 
 
-    const filteredAccomadations = accomadation.filter( accomadation => {
+    const filteredAccomadations = accomadation.filter ( accomadation => {
       return ( accomadation.location === selectedLocation || selectedLocation === '' ) &&
         ( accomadation.minGuests <= guests ) &&
         ( accomadation.maxGuests >= guests ) &&
@@ -329,17 +329,16 @@ $ ( document ) .ready ( function () {
 
 
     $( "#bookButton" ) .click ( function () {
-      const selectedAccomadationId = $( this ) .data ( 'id');
-      populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
+      const accomadationId = $( this ) .data ( 'id');
+      const selectedAccomadationId = (accomadationId - 1);
+      populateSelectedOutput ( accomadation [ selectedAccomadationId ] );
       fullpage_api.moveTo ( 2, 2 );
     });
 
     $( "#seeMoreAccomadationButton" ) .click ( function () {
       const accomadationId = $( this ) .data ( 'id');
       const selectedAccomadationId = (accomadationId - 1);
-      populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
-
-      populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
+      populateSelectedOutput ( accomadation [ selectedAccomadationId ] );
       fullpage_api.moveTo ( 2, 2 );
     });
 
