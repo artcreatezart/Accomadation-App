@@ -202,7 +202,6 @@ $ ( document ) .ready ( function () {
         ( accomadation.maxStay >= diffDays );
     });
 
-    console.log ( filteredAccomadations );
     displayAccomadations ( filteredAccomadations );
   }
 
@@ -246,7 +245,6 @@ $ ( document ) .ready ( function () {
 
       for ( let j = i; j < i + accomadationsPerPage && j < filteredAccomadations.length; j++ ) {
         const accomadation = filteredAccomadations [ j ];
-        console.log(accomadation.id);
         const accomadationElement = `
                     <div class="card-container">
 
@@ -437,7 +435,6 @@ $ ( document ) .ready ( function () {
 
     $(document).on('change', '#breakfastCheck, #lunchCheck, #dinnerCheck', function () {
         const mealPrice = updateMealPrice();
-        console.log("Updated meal price: " + mealPrice);
         // You may want to display the updated meal price somewhere on the UI
     });
 
@@ -448,11 +445,9 @@ $ ( document ) .ready ( function () {
 
         const mealPrice = updateMealPrice();
         const accomadationPrice = parseFloat(selectedAccomadation.price.replace('$', ''));
-        console.log("Meal price: " + mealPrice);
 
         const perPerson = (accomadationPrice * diffDays) + (mealPrice * diffDays);
         const totalPrice = perPerson * guests;
-        console.log(totalPrice);
         const price = totalPrice;
         
 
@@ -521,7 +516,6 @@ $ ( document ) .ready ( function () {
   // BOOKING INFO OUTPUT
 
   function populateBookingInfoOutput ( accomadation, price ) {
-    console.log ( accomadation );
     const outputBookingAccomadationSelected = $ ( "#bookingInfoOutput" );
     const slideBookingOutputHtml = ` 
             <div class="booking-info-container">
@@ -553,14 +547,14 @@ $ ( document ) .ready ( function () {
                 ${ $ ( "#breakfastCheck" ) .is ( ':checked' ) ? '<h6>Breakfast</h6>' : '' }
                 ${ $ ( "#lunchCheck" ) .is ( ':checked' ) ? '<h6>Lunch</h6>' : '' }
                 ${ $ ( "#dinnerCheck" ) .is ( ':checked' ) ? '<h6>Dinner</h6>' : '' }
-                ${$("#breakfastCheck").prop('checked') === false && $("#lunchCheck").prop('checked') === false && $("#dinnerCheck").prop('checked') === false ? '<h6>No Plan</h6>' : ''}
+                ${ $ ( "#breakfastCheck" ).prop('checked') === false && $( "#lunchCheck" ).prop( 'checked' ) === false && $( "#dinnerCheck" ).prop( 'checked' ) === false ? '<h6>No Plan</h6>' : ''}
 
 
               </div>
 
             </div>
 
-            <h2>Total Price: $${price}<span id="totalPrice"></span></h2>
+            <h2>Total Price: $${ price } <span id="totalPrice"></span></h2>
             <button class="primary-button" id="confirmButton">Confirm</button>
         `;
 
