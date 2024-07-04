@@ -246,6 +246,7 @@ $ ( document ) .ready ( function () {
 
       for ( let j = i; j < i + accomadationsPerPage && j < filteredAccomadations.length; j++ ) {
         const accomadation = filteredAccomadations [ j ];
+        console.log(accomadation.id);
         const accomadationElement = `
                     <div class="card-container">
 
@@ -296,7 +297,7 @@ $ ( document ) .ready ( function () {
                               </div>
 
                               <h2>${ accomadation.price } / night</h2>
-                              <button class="primary-button" id="seeMoreAccomadationButton">See More<i class="fa-solid fa-arrow-right"></i></button>
+                              <button class="primary-button" id="seeMoreAccomadationButton" data-id="${accomadation.id}">See More<i class="fa-solid fa-arrow-right"></i></button>
 
                             </div>
 
@@ -328,171 +329,139 @@ $ ( document ) .ready ( function () {
 
 
     $( "#bookButton" ) .click ( function () {
-      const selectedAccomadationId = $( this ) .closest ( '.swiper-slide' ) .index();
+      const selectedAccomadationId = $( this ) .data ( 'id');
       populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
       fullpage_api.moveTo ( 2, 2 );
     });
 
     $( "#seeMoreAccomadationButton" ) .click ( function () {
       const accomadationId = $( this ) .data ( 'id');
-      const selectedAccomadationId = $( this ) .closest ( '.swiper-slide' ) .index();
+      const selectedAccomadationId = (accomadationId - 1);
       populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
 
       populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
       fullpage_api.moveTo ( 2, 2 );
     });
 
-    function populateSelectedOutput ( accomadation ) {
-      const outputAccomadationSelected = $( "#accomadationSelected" );
-      const slideOutputHtml = `
-                        <div class="left-accomadation-selected-container">
-
-                          <div class="accomadation-selected-img"></div>
-
-                            <div class="left-accomadation-selected-info">
-
-                              <div class="left-accomadation-selected-name-info">
-
-                                <h1>${ accomadation.name }</h1>
-
-                                <div class="left-accomadation-selected-location-info">
-                                  <h5>${ accomadation.type }</h5>
-                                  <i class="fa-solid fa-location-dot"></i>
-                                  <h4>${ accomadation.location }</h4>
+    function populateSelectedOutput(accomadation) {
+    const outputAccomadationSelected = $("#accomadationSelected");
+    const slideOutputHtml = `
+        <div class="left-accomadation-selected-container">
+            <div class="accomadation-selected-img"></div>
+            <div class="left-accomadation-selected-info">
+                <div class="left-accomadation-selected-name-info">
+                    <h1>${accomadation.name}</h1>
+                    <div class="left-accomadation-selected-location-info">
+                        <h5>${accomadation.type}</h5>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h4>${accomadation.location}</h4>
+                    </div>
+                </div>
+                <p>${accomadation.accomadationInfo}</p>
+                <div class="left-accomadation-selected-bottom-info-section">
+                    <div class="left-accomadation-selected-ammenities">
+                        <div class="left-left-accomadation-selected-ammenities">
+                            <div class="guests-info">
+                                <i class="fa-solid fa-user"></i>
+                                <h6>${accomadation.minGuests} - ${accomadation.maxGuests} Guests</h6>
+                            </div>
+                            <div class="nights-info">
+                                <i class="fa-solid fa-moon"></i>
+                                <h6>${accomadation.minStay} - ${accomadation.maxStay} Nights</h6>
+                            </div>
+                            <div class="selected-accomadation-ammenites-info">
+                                <div class="bedroom-info">
+                                    <h6>${accomadation.bedrooms}</h6>
+                                    <i class="fa-solid fa-bed"></i>
                                 </div>
-
-                              </div>
-
-                              <p>${ accomadation.accomadationInfo }</p>
-
-                              <div class="left-accomadation-selected-bottom-info-section">
-
-                                <div class="left-accomadation-selected-ammenities">
-
-                                  <div class="left-left-accomadation-selected-ammenities">
-
-                                    <div class="guests-info">
-                                      <i class="fa-solid fa-user"></i>
-                                      <h6>${ accomadation.minGuests } - ${ accomadation.maxGuests } Guests</h6>
-                                    </div>
-
-                                    <div class="nights-info">
-                                      <i class="fa-solid fa-moon"></i>
-                                      <h6>${ accomadation.minStay } - ${ accomadation.maxStay } Nights</h6>
-                                    </div>
-
-                                    <div class="selected-accomadation-ammenites-info">
-
-                                      <div class="bedroom-info">
-                                         <h6>${ accomadation.bedrooms }</h6>
-                                         <i class="fa-solid fa-bed"></i>
-                                      </div>
-
-                                      <div class="bathrooms-info">
-                                         <h6>${ accomadation.bathrooms }</h6>
-                                         <i class="fa-solid fa-toilet"></i>
-                                      </div>
-
-                                    </div>
-
-                                  </div>
-
-                                  <div class="left-right-accomadation-selected-ammenities">
-
-                                    <div class="parking-info">
-                                      ${ accomadation.parking ? '<i class="fa-solid fa-car" id="carIcon"></i>' : '' }
-                                      ${ accomadation.parking ? '<h6>CarPark <br> Available</h6>' : '' }
-                                    </div>
-
-                                    <div class="kid-friendly-info">
-                                      ${ accomadation.kidFriendly ? '<i class="fa-solid fa-child" id="childIcon"></i>' : '' }
-                                      ${ accomadation.kidFriendly ? '<h6>Kid <br> Friendly</h6>' : '' }
-                                    </div>
-
-                                  </div>
-
+                                <div class="bathrooms-info">
+                                    <h6>${accomadation.bathrooms}</h6>
+                                    <i class="fa-solid fa-toilet"></i>
                                 </div>
-
-                              </div>
-
-                              <div class="right-accomadation-selected-bottom-info-section">
-                                <h2>${ accomadation.price } / night</h2>
-                                <button class="primary-button" id="bookButton" data-id="${accomadation.id}">Book</button>
-                              </div>
-
                             </div>
-
-                          </div>
-
                         </div>
-
-                        <div class="vertical-line"></div>
-
-                        <div class="meal-plan-container">
-
-                          <div class="meal-plan-header">
-                            <h1>Meal Plan</h1>
-                            <i class="fa-solid fa-utensils"></i>
-                          </div>
-
-                          <p>Here we provide multiple different meal options if you wish to have them. We can also
-                          cater to any dietery restrictions just give us a call for any inquires. <br> <span
-                          class="meal-highlight-comment">*Meals are priced per guest per night</span>
-                          </p>
-
-                          <div class="meal-plan-select">
-                          
-                            <div class="meal-plan-option">
-                                <input type="checkbox" id="breakfastCheck" value="15">
-                                <label for="breakfast">Breakfast - $15</label>
+                        <div class="left-right-accomadation-selected-ammenities">
+                            <div class="parking-info">
+                                ${accomadation.parking ? '<i class="fa-solid fa-car" id="carIcon"></i>' : ''}
+                                ${accomadation.parking ? '<h6>CarPark <br> Available</h6>' : ''}
                             </div>
-
-                            <div class="meal-plan-option">
-                                <input type="checkbox" id="lunchCheck" value="20">
-                                <label for="lunch">Lunch - $20</label>
+                            <div class="kid-friendly-info">
+                                ${accomadation.kidFriendly ? '<i class="fa-solid fa-child" id="childIcon"></i>' : ''}
+                                ${accomadation.kidFriendly ? '<h6>Kid <br> Friendly</h6>' : ''}
                             </div>
-
-                            <div class="meal-plan-option">
-                                <input type="checkbox" id="dinnerCheck" value="30">
-                                <label for="dinner">Dinner - $30</label>
-                            </div>
-
-                          </div>
-
                         </div>
-                `;
+                    </div>
+                </div>
+                <div class="right-accomadation-selected-bottom-info-section">
+                    <h2>${accomadation.price} / night</h2>
+                    <button class="primary-button" id="bookButton" data-id="${accomadation.id}">Book</button>
+                </div>
+            </div>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="meal-plan-container">
+            <div class="meal-plan-header">
+                <h1>Meal Plan</h1>
+                <i class="fa-solid fa-utensils"></i>
+            </div>
+            <p>Here we provide multiple different meal options if you wish to have them. We can also
+            cater to any dietery restrictions just give us a call for any inquires. <br> <span
+            class="meal-highlight-comment">*Meals are priced per guest per night</span>
+            </p>
+            <div class="meal-plan-select">
+                <div class="meal-plan-option">
+                    <input type="checkbox" id="breakfastCheck" value="15">
+                    <label for="breakfast">Breakfast - $15</label>
+                </div>
+                <div class="meal-plan-option">
+                    <input type="checkbox" id="lunchCheck" value="20">
+                    <label for="lunch">Lunch - $20</label>
+                </div>
+                <div class="meal-plan-option">
+                    <input type="checkbox" id="dinnerCheck" value="30">
+                    <label for="dinner">Dinner - $30</label>
+                </div>
+            </div>
+        </div>
+    `;
 
-      outputAccomadationSelected.empty ();
-      outputAccomadationSelected.append ( slideOutputHtml );
+    outputAccomadationSelected.empty();
+    outputAccomadationSelected.append(slideOutputHtml);
 
-      $ ( document ) .on ( 'click', '#bookButton', function () {
-        const accomadationData = $( this ) .data ( 'id' );
-        const selectedAccomadation = accomadation[accomadationData];
-        const diffDays = calculateDays ();
-        const guests = parseInt( $ ( "#guests" ) .val () );
-    
-        var mealPrice = 0;
-        if ( $ ( "#breakfastCheck" ) .is ( ':checked' ) ) mealPrice += parseFloat ( $ ( "#breakfastCheck" ) .val () );
-        if ( $ ( "#lunchCheck" ) .is ( ':checked' ) ) mealPrice += parseFloat ( $ ( "#lunchCheck" ) .val () );
-        if ( $ ( "#dinnerCheck" ) .is ( ':checked' ) ) mealPrice += parseFloat ( $ ( "#dinnerCheck" ) .val () );
-    
-        // const accomadationPrice = parseFloat ( selectedAccomadation.price.replace ( '$', '' ) );
-        console.log(accomadationData);
-        console.log(selectedAccomadation);
-    
-        if ( ( mealPrice ) && ( diffDays ) && $ ( guests ) ) {
-          var perPerson = ( accomadationPrice * diffDays ) + ( mealPrice * diffDays );
-          var totalPrice = perPerson * $ ( guests );
-          $ ( "#totalPrice" ) .text ( totalPrice .toFixed ( 2 ) );
-          console.log($ ( "#totalPrice" ) .text ( totalPrice .toFixed ( 2 ) ) );
-        }
-    
-    
-        populateBookingInfoOutput ( selectedAccomadation );
-        fullpage_api.moveTo ( 2, 3 );
-    
-      });
+    function updateMealPrice() {
+        let mealPrice = 0;
+        if ($("#breakfastCheck").is(':checked')) mealPrice += parseFloat($("#breakfastCheck").val());
+        if ($("#lunchCheck").is(':checked')) mealPrice += parseFloat($("#lunchCheck").val());
+        if ($("#dinnerCheck").is(':checked')) mealPrice += parseFloat($("#dinnerCheck").val());
+        return mealPrice;
     }
+
+    $(document).on('change', '#breakfastCheck, #lunchCheck, #dinnerCheck', function () {
+        const mealPrice = updateMealPrice();
+        console.log("Updated meal price: " + mealPrice);
+        // You may want to display the updated meal price somewhere on the UI
+    });
+
+    $(document).on('click', '#bookButton', function () {
+        const selectedAccomadation = accomadation;
+        const diffDays = calculateDays();
+        const guests = parseInt($("#guests").val());
+
+        const mealPrice = updateMealPrice();
+        const accomadationPrice = parseFloat(selectedAccomadation.price.replace('$', ''));
+        console.log("Meal price: " + mealPrice);
+
+        const perPerson = (accomadationPrice * diffDays) + (mealPrice * diffDays);
+        const totalPrice = perPerson * guests;
+        console.log(totalPrice);
+        const price = totalPrice;
+        
+
+        populateBookingInfoOutput(selectedAccomadation, price);
+        fullpage_api.moveTo(2, 3);
+    });
+}
+
 
   }
 
@@ -552,7 +521,7 @@ $ ( document ) .ready ( function () {
 
   // BOOKING INFO OUTPUT
 
-  function populateBookingInfoOutput ( accomadation ) {
+  function populateBookingInfoOutput ( accomadation, price ) {
     console.log ( accomadation );
     const outputBookingAccomadationSelected = $ ( "#bookingInfoOutput" );
     const slideBookingOutputHtml = ` 
@@ -592,7 +561,7 @@ $ ( document ) .ready ( function () {
 
             </div>
 
-            <h2>Total Price: <span id="totalPrice"></span></h2>
+            <h2>Total Price: $${price}<span id="totalPrice"></span></h2>
             <button class="primary-button" id="confirmButton">Confirm</button>
         `;
 
