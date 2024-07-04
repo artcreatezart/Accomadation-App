@@ -311,11 +311,7 @@ $ ( document ) .ready ( function () {
       swiperWrapper.append ( slide );
     }
 
-    $( "#bookButton" ) .click ( function () {
-      const selectedAccomadationId = $( this ) .closest ( '.swiper-slide' ) .index();
-      populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
-      fullpage_api.moveTo ( 2, 2 );
-    });
+    
 
     // Destroy the swiper
     swiper.destroy ( true, true );
@@ -330,11 +326,17 @@ $ ( document ) .ready ( function () {
     // Rebuild Fullpage 
     fullpage_api.reBuild ();
 
+
+    $( "#bookButton" ) .click ( function () {
+      const selectedAccomadationId = $( this ) .closest ( '.swiper-slide' ) .index();
+      populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
+      fullpage_api.moveTo ( 2, 2 );
+    });
+
     $( "#seeMoreAccomadationButton" ) .click ( function () {
       const accomadationId = $( this ) .data ( 'id');
       const selectedAccomadationId = $( this ) .closest ( '.swiper-slide' ) .index();
       populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
-      console.log ( accomadationId );
 
       populateSelectedOutput ( filteredAccomadations [ selectedAccomadationId ] );
       fullpage_api.moveTo ( 2, 2 );
@@ -415,7 +417,7 @@ $ ( document ) .ready ( function () {
 
                               <div class="right-accomadation-selected-bottom-info-section">
                                 <h2>${ accomadation.price } / night</h2>
-                                <button class="primary-button" id="bookButton" data-id="${ accomadation.id }">Book</button>
+                                <button class="primary-button" id="bookButton" data-id="${accomadation.id}">Book</button>
                               </div>
 
                             </div>
@@ -463,36 +465,34 @@ $ ( document ) .ready ( function () {
       outputAccomadationSelected.empty ();
       outputAccomadationSelected.append ( slideOutputHtml );
 
-      $( document ) .on ( 'click', '#bookButton', function () {
+      $ ( document ) .on ( 'click', '#bookButton', function () {
         const accomadationData = $( this ) .data ( 'id' );
-        console.log ( accomadation );
-        console.log ( accomadationData );
-        const selectedAccomadation = accomadation [ accomadationData ];
-        console.log ( selectedAccomadation );
+        const selectedAccomadation = accomadation[accomadationData];
         const diffDays = calculateDays ();
-        const guests = parseInt($("#guests").val());
+        const guests = parseInt( $ ( "#guests" ) .val () );
     
         var mealPrice = 0;
         if ( $ ( "#breakfastCheck" ) .is ( ':checked' ) ) mealPrice += parseFloat ( $ ( "#breakfastCheck" ) .val () );
         if ( $ ( "#lunchCheck" ) .is ( ':checked' ) ) mealPrice += parseFloat ( $ ( "#lunchCheck" ) .val () );
         if ( $ ( "#dinnerCheck" ) .is ( ':checked' ) ) mealPrice += parseFloat ( $ ( "#dinnerCheck" ) .val () );
     
-        const accomadationPrice = parseFloat ( selectedAccomadation.price.replace ( '$', '' ) );
+        // const accomadationPrice = parseFloat ( selectedAccomadation.price.replace ( '$', '' ) );
+        console.log(accomadationData);
+        console.log(selectedAccomadation);
     
         if ( ( mealPrice ) && ( diffDays ) && $ ( guests ) ) {
           var perPerson = ( accomadationPrice * diffDays ) + ( mealPrice * diffDays );
           var totalPrice = perPerson * $ ( guests );
           $ ( "#totalPrice" ) .text ( totalPrice .toFixed ( 2 ) );
-          console.log($ ( "#totalPrice" ) .text ( totalPrice .toFixed ( 2 ) ));
+          console.log($ ( "#totalPrice" ) .text ( totalPrice .toFixed ( 2 ) ) );
         }
     
     
-        populateBookingInfoOutput ( selectedAccomadation ) ;
+        populateBookingInfoOutput ( selectedAccomadation );
         fullpage_api.moveTo ( 2, 3 );
     
       });
     }
-
 
   }
 
@@ -535,9 +535,6 @@ $ ( document ) .ready ( function () {
     fullpage_api.moveTo ( 2, 2 );
   });
   
-
-  
-
   $ ( document ) .on ( 'click', '#confirmButton', function ( e ) {
     e.preventDefault();
     fullpage_api.moveTo ( 2, 4 ); 
@@ -595,7 +592,7 @@ $ ( document ) .ready ( function () {
 
             </div>
 
-            <h2>Total Price: <span id="totalPrice" ></span></h2>
+            <h2>Total Price: <span id="totalPrice"></span></h2>
             <button class="primary-button" id="confirmButton">Confirm</button>
         `;
 
